@@ -1,0 +1,44 @@
+services:
+  hadoop-master:
+    image: yassern1/hadoop-spark-jupyter:1.0.3
+    container_name: hadoop-master
+    hostname: hadoop-master
+    networks:
+      - hadoop
+    ports:
+      - "9870:9870"     # HDFS NameNode Web UI
+      - "8088:8088"     # YARN ResourceManager
+      - "7077:7077"     # Spark master
+      - "19888:19888"   # MapReduce JobHistory
+      - "8080:8080"     # Jupyter Notebook
+      - "9000:9000"     # HDFS namenode
+    volumes:
+      - ~/Documents/BigdataLabs/hadoop_project:/shared_volume
+    tty: true
+    stdin_open: true
+
+  hadoop-slave1:
+    image: yassern1/hadoop-spark-jupyter:1.0.3
+    container_name: hadoop-slave1
+    hostname: hadoop-slave1
+    networks:
+      - hadoop
+    ports:
+      - "8040:8042"   # NodeManager Web UI
+    tty: true
+    stdin_open: true
+
+  hadoop-slave2:
+    image: yassern1/hadoop-spark-jupyter:1.0.3
+    container_name: hadoop-slave2
+    hostname: hadoop-slave2
+    networks:
+      - hadoop
+    ports:
+      - "8041:8042"   # NodeManager Web UI
+    tty: true
+    stdin_open: true
+
+networks:
+  hadoop:
+    driver: bridge

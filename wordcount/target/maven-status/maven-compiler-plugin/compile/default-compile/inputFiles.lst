@@ -1,0 +1,3 @@
+/home/bouchra/Documents/BigdataLabs/wordcount/src/main/java/edu/ensias/hadoop/WordCount.java
+/home/bouchra/Documents/BigdataLabs/wordcount/src/main/java/edu/ensias/hadoop/TokenizerMapper.java
+/home/bouchra/Documents/BigdataLabs/wordcount/src/main/java/edu/ensias/hadoop/IntSumReducer.java
