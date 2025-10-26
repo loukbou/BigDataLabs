@@ -12,6 +12,8 @@ services:
       - "19888:19888"   # MapReduce JobHistory
       - "8080:8080"     # Jupyter Notebook
       - "9000:9000"     # HDFS namenode
+      - "2181:2181"     # Zookeeper
+      - "9092:9092"     # Kafka broker
     volumes:
       - ~/Documents/BigdataLabs/hadoop_project:/shared_volume
     tty: true
@@ -24,9 +26,15 @@ services:
     networks:
       - hadoop
     ports:
-      - "8040:8042"   # NodeManager Web UI
+      - "8040:8042"
     tty: true
     stdin_open: true
+    command: >
+      bash -c "
+      ./start-hadoop.sh &&
+      ./start-kafka-zookeeper.sh &&
+      tail -f /dev/null
+      "
 
   hadoop-slave2:
     image: yassern1/hadoop-spark-jupyter:1.0.3
@@ -35,9 +43,21 @@ services:
     networks:
       - hadoop
     ports:
-      - "8041:8042"   # NodeManager Web UI
+      - "8041:8042"
     tty: true
     stdin_open: true
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    ports:
+      - "9001:9000"
+    environment:
+      KAFKA_BROKERCONNECT: hadoop-master:9092
+    networks:
+      - hadoop
+    depends_on:
+      - hadoop-master
 
 networks:
   hadoop:

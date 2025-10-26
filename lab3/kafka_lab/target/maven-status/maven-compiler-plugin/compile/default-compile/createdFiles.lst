@@ -1,0 +1,6 @@
+edu/ensias/kafka/kafka_app/WordCountConsumer.class
+edu/ensias/kafka/kafka_app/WordProducer.class
+edu/ensias/kafka/kafka_app/EventProducer.class
+edu/ensias/kafka/kafka_app/MainApp.class
+edu/ensias/kafka/kafka_app/WordCountApp.class
+edu/ensias/kafka/kafka_app/EventConsumer.class
