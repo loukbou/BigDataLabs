@@ -1,0 +1,18 @@
+services:
+  hiveserver2:
+    image: apache/hive:4.0.0-alpha-2
+    container_name: hiveserver2-standalone
+    environment:
+      SERVICE_NAME: hiveserver2
+    ports:
+      - "10000:10000"  # HiveServer2 JDBC
+      - "10002:10002"  # Thrift CLI
+      - "9083:9083"    # Hive Metastore
+    volumes:
+      - ~/Documents/BigdataLabs/hadoop_project/:/shared_volume
+    command: >
+      bash -c "
+        /opt/hive/bin/hive --service metastore &
+        /opt/hive/bin/hive --service hiveserver2
+      "
+    restart: unless-stopped
